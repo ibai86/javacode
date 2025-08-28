@@ -10,6 +10,10 @@ public class UndoableStringBuilder {
         this.builder = new CustomStringBuilder();
     }
 
+    public UndoableStringBuilder(String str) {
+        this.builder = new CustomStringBuilder(str);
+    }
+
     private static class Snapshot {
         private final CustomStringBuilder.StateData stateData;
 
@@ -24,31 +28,37 @@ public class UndoableStringBuilder {
 
     private static final class CustomStringBuilder {
         private char[] value;
-        private int length;
-        private static final int DEFAULT_LENGTH = 16;
-
-        public static class StateData {
-            final char[] value;
-            final int length;
-
-            StateData(char[] value, int length) {
-                this.value = Arrays.copyOf(value, length);
-                this.length = length;
-            }
-        }
+        private int count;
+        private static final int DEFAULT_CAPACITY = 16;
 
         public CustomStringBuilder() {
-            this.value = new char[DEFAULT_LENGTH];
-            this.length = 0;
+            this.value = new char[DEFAULT_CAPACITY];
+            this.count = 0;
+        }
+
+        public CustomStringBuilder(String str) {
+            this();
+            append(str);
         }
 
         private CustomStringBuilder(StateData state) {
             this.value = Arrays.copyOf(state.value, state.value.length);
-            this.length = state.length;
+            this.count = state.count;
+        }
+
+        public static class StateData {
+            final char[] value;
+            final int count;
+
+            StateData(char[] value, int count) {
+                this.value = Arrays.copyOf(value, count);
+                this.count = count;
+            }
+
         }
 
         public StateData getState() {
-            return new StateData(this.value, this.length);
+            return new StateData(this.value, this.count);
         }
 
         public CustomStringBuilder restoreState(StateData state) {
@@ -60,9 +70,9 @@ public class UndoableStringBuilder {
                 str = "null";
             }
             int len = str.length();
-            ensureCapacity(length + len);
-            str.getChars(0, len, value, length);
-            length += len;
+            ensureCapacity(count + len);
+            str.getChars(0, len, value, count);
+            count += len;
             return this;
         }
 
@@ -75,7 +85,34 @@ public class UndoableStringBuilder {
 
         @Override
         public String toString() {
-            return new String(value, 0, length);
+            return new String(value, 0, count);
         }
+    }
+
+    public UndoableStringBuilder append(String str) {
+        history.push(new Snapshot(builder.getState()));
+        builder.append(str);
+        return this;
+    }
+
+    public void undo() {
+        if (!history.isEmpty()) {
+            Snapshot lastState = history.pop();
+            this.builder = builder.restoreState(lastState.getSavedState());
+        }
+    }
+
+    @Override
+    public String toString() {
+        return builder.toString();
+    }
+
+    public static void main(String[] args) {
+        UndoableStringBuilder uBuilder = new UndoableStringBuilder("Hello, ");
+
+        uBuilder.append("World!");
+        System.out.println(uBuilder); //Hello, World!
+        uBuilder.undo();
+        System.out.println(uBuilder); //Hello,
     }
 }
