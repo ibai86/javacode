@@ -1,4 +1,4 @@
-public class Triangle implements GeometricFigure{
+public class Triangle implements Shape {
 
     private final double side1;
     private final double side2;

@@ -1,4 +1,4 @@
-public class Circle implements GeometricFigure{
+public class Circle implements Shape {
 
     private final double radius;
 

@@ -1,4 +1,4 @@
-public class Rectangle implements GeometricFigure{
+public class Rectangle implements Shape {
 
     private final double width;
     private final double height;
