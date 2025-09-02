@@ -20,7 +20,7 @@ public class ComplexTask {
             System.out.println("Task #" + taskId + " started");
             double result = Math.random() * 2000;
             Thread.sleep((long) (result));
-            System.out.println("Task #" + taskId + " completed");
+            System.out.println("Task #" + taskId + " completed with result = " + result);
 
             partialResults.add(result);
 
