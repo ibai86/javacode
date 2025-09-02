@@ -4,11 +4,12 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class BlockingQueue<T> {
-    private final Queue<T> queue = new ArrayDeque<>();
+    private final Queue<T> queue;
     private final int capacity;
 
     public BlockingQueue(int capacity) {
         this.capacity = capacity;
+        this.queue = new ArrayDeque<>(capacity);
     }
 
     public synchronized void enqueue(T obj) throws InterruptedException {
