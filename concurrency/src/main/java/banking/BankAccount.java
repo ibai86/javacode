@@ -1,10 +1,15 @@
 package banking;
 
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BankAccount {
     private long balance; // Храним в копейках/центах
     private final ReentrantLock lock = new ReentrantLock();
+
+    public BankAccount(long balance) {
+        this.balance = balance;
+    }
 
     public void deposit(long amount) {
         lock.lock();
@@ -15,15 +20,10 @@ public class BankAccount {
         }
     }
 
-    public boolean withdraw(long amount) {
+    public void withdraw(long amount) {
         lock.lock();
         try {
-            if (balance < amount) {
-                System.out.println("Insufficient funds in the account");
-                return false;
-            }
             balance -= amount;
-            return true;
         } finally {
             lock.unlock();
         }
@@ -31,5 +31,21 @@ public class BankAccount {
 
     public synchronized long getBalance() {
         return balance;
+    }
+
+    public ReentrantLock getLock() {
+        return lock;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        BankAccount account = (BankAccount) o;
+        return balance == account.balance && Objects.equals(lock, account.lock);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(balance, lock);
     }
 }
