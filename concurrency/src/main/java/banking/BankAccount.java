@@ -1,9 +1,10 @@
 package banking;
 
-import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BankAccount {
+    private final UUID id = UUID.randomUUID();
     private long balance; // Храним в копейках/центах
     private final ReentrantLock lock = new ReentrantLock();
 
@@ -29,7 +30,7 @@ public class BankAccount {
         }
     }
 
-    public synchronized long getBalance() {
+    public long getBalance() {
         return balance;
     }
 
@@ -37,15 +38,20 @@ public class BankAccount {
         return lock;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
+
         BankAccount account = (BankAccount) o;
-        return balance == account.balance && Objects.equals(lock, account.lock);
+        return id.equals(account.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(balance, lock);
+        return id.hashCode();
     }
 }

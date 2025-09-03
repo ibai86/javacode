@@ -2,37 +2,35 @@ package banking;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 
 public class ConcurrentBank {
-    private final Map<BankAccount, Integer> accounts = new HashMap<>();
-    private final AtomicInteger idCounter = new AtomicInteger(1);
+    private final Map<UUID, BankAccount> accounts = new HashMap<>();
 
     public BankAccount createAccount(long initialBalance) {
         BankAccount newAccount = new BankAccount(initialBalance);
-        int newId = idCounter.getAndIncrement();
-        accounts.put(newAccount, newId);
+        accounts.put(newAccount.getId(), newAccount);
         return newAccount;
     }
 
-    public void transfer(BankAccount fromAccount, BankAccount toAccount, long amount) {
-        int fromId = accounts.get(fromAccount);
-        int toId = accounts.get(toAccount);
+    public void transfer(UUID fromId, UUID toId, long amount) {
+        BankAccount from = accounts.get(fromId);
+        BankAccount to = accounts.get(toId);
 
-        Lock firstLock = fromId < toId ? fromAccount.getLock() : toAccount.getLock();
-        Lock secondLock = fromId < toId ? toAccount.getLock() : fromAccount.getLock();
+        Lock firstLock = fromId.compareTo(toId) < 0 ? from.getLock() : to.getLock();
+        Lock secondLock = fromId.compareTo(toId) < 0 ? to.getLock() : from.getLock();
 
         firstLock.lock();
         secondLock.lock();
 
         try {
-            if (fromAccount.getBalance() < amount) {
+            if (from.getBalance() < amount) {
                 System.out.println("Insufficient funds in the account");
                 return;
             }
-            fromAccount.withdraw(amount);
-            toAccount.deposit(amount);
+            from.withdraw(amount);
+            to.deposit(amount);
             System.out.println("Transfer successfully completed");
         } finally {
             secondLock.unlock();
@@ -41,7 +39,7 @@ public class ConcurrentBank {
     }
 
     public long getTotalBalance() {
-        return accounts.keySet().stream()
+        return accounts.values().stream()
                 .mapToLong(BankAccount::getBalance)
                 .sum();
     }
