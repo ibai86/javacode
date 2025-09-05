@@ -26,10 +26,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>6.2.10</spring.version>
         <spring-data.version>3.5.3</spring-data.version>
-        <hibernate.version>7.1.0</hibernate.version>
+        <hibernate.version>7.1.0.Final</hibernate.version>
         <tomcat.version>11.0.10</tomcat.version>
         <jackson.version>2.19.0</jackson.version>
-        <postgresql.version>42.3.6</postgresql.version>
+        <postgresql.version>42.7.7</postgresql.version>
         <lombok.version>1.18.38</lombok.version>
     </properties>
 
