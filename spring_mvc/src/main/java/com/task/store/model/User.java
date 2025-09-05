@@ -1,5 +1,6 @@
-package model;
+package com.task.store.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,22 +32,33 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @JsonView(Views.UserSummary.class)
     private Long id;
 
     @Column(name = "username", nullable = false)
+    @JsonView(Views.UserSummary.class)
     private String username;
 
     @Column(name = "email", nullable = false, unique = true)
     @EqualsAndHashCode.Include
+    @JsonView(Views.UserSummary.class)
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonView(Views.UserDetails.class)
     private List<Order> orders;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
+    @JsonView(Views.UserDetails.class)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
+    @JsonView(Views.UserDetails.class)
     private LocalDateTime updatedAt;
+
+    public static class Views {
+        public static class UserSummary {}
+        public static class UserDetails extends UserSummary {}
+    }
 }

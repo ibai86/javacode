@@ -1,4 +1,4 @@
-package model;
+package com.task.store.model;
 
 public enum OrderStatus {
     COMPLETE,
