@@ -35,4 +35,7 @@ public class Item {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "quantity")
+    private int quantity;
 }
