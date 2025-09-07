@@ -1,9 +1,7 @@
 package com.task.store.mapper;
 
-import com.task.store.dto.OrderDto;
-import com.task.store.dto.UserDetailsDto;
-import com.task.store.dto.UserSummaryDto;
-import com.task.store.model.Order;
+import com.task.store.dto.UserDto;
+import com.task.store.dto.UserRequestDto;
 import com.task.store.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,13 +12,13 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = OrderMapper.class)
 public interface UserMapper {
 
-    UserSummaryDto toSummaryDto(User user);
+    UserRequestDto toSummaryDto(User user);
 
     @Mapping(target = "orders", source = "orders")
-    UserDetailsDto toDetailsDto(User user);
+    UserDto toDetailsDto(User user);
 
-    User toEntity(UserSummaryDto dto);
+    User toEntity(UserDto dto);
 
-    List<UserSummaryDto> toUsersList(List<User> users);
+    List<UserDto> toUsersList(List<User> users);
 
 }

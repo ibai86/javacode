@@ -1,9 +1,11 @@
 package com.task.store.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.task.store.dto.UserSummaryDto;
+import com.task.store.dto.UserDto;
+import com.task.store.dto.UserRequestDto;
 import com.task.store.mapper.UserMapper;
 import com.task.store.model.User;
+import com.task.store.model.Views;
 import com.task.store.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -32,13 +34,13 @@ public class UserController {
 
 
     @PostMapping("/users")
-    public ResponseEntity<UserSummaryDto> createUser(@Valid @RequestBody UserSummaryDto dto) {
+    public ResponseEntity<UserRequestDto> createUser(@Valid @RequestBody UserRequestDto dto) {
         User newUser = userService.createUser(dto);
         return new ResponseEntity<>(mapper.toSummaryDto(newUser), HttpStatus.CREATED);
     }
 
     @PatchMapping("/users")
-    public ResponseEntity<UserSummaryDto> updateUser(@Valid @RequestBody UserSummaryDto dto) {
+    public ResponseEntity<UserRequestDto> updateUser(@Valid @RequestBody UserRequestDto dto) {
         User updatedUser = userService.updateUser(dto);
         return new ResponseEntity<>(mapper.toSummaryDto(updatedUser), HttpStatus.CREATED);
     }
@@ -49,12 +51,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @JsonView({User.Views.UserDetails.class})
-    @GetMapping("/id")
-    public ResponseEntity
-    @JsonView(User.Views.UserSummary.class)
+//    @JsonView({Views.UserDetails.class})
+//    @GetMapping("/id")
+//    public ResponseEntity
+    @JsonView(Views.UserSummary.class)
     @GetMapping("/users")
-    public ResponseEntity<List<UserSummaryDto>> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(mapper.toUsersList(users), HttpStatus.OK);
     }

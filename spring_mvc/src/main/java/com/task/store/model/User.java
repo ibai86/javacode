@@ -60,9 +60,4 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     @JsonView(Views.UserDetails.class)
     private LocalDateTime updatedAt;
-
-    public static class Views {
-        public static class UserSummary {}
-        public static class UserDetails extends UserSummary {}
-    }
 }
