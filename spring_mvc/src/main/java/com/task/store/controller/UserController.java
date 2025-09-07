@@ -36,13 +36,13 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<UserRequestDto> createUser(@Valid @RequestBody UserRequestDto dto) {
         User newUser = userService.createUser(dto);
-        return new ResponseEntity<>(mapper.toSummaryDto(newUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toDto(newUser), HttpStatus.CREATED);
     }
 
     @PatchMapping("/users")
     public ResponseEntity<UserRequestDto> updateUser(@Valid @RequestBody UserRequestDto dto) {
         User updatedUser = userService.updateUser(dto);
-        return new ResponseEntity<>(mapper.toSummaryDto(updatedUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toDto(updatedUser), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -54,11 +54,11 @@ public class UserController {
 //    @JsonView({Views.UserDetails.class})
 //    @GetMapping("/id")
 //    public ResponseEntity
-    @JsonView(Views.UserSummary.class)
+    @JsonView(Views.UserDetails.class)
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-        return new ResponseEntity<>(mapper.toUsersList(users), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toDtoList(users), HttpStatus.OK);
     }
 
 }

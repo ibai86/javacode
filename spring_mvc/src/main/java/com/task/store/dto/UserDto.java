@@ -1,7 +1,7 @@
 package com.task.store.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.task.store.model.Order;
 import com.task.store.model.Views;
 
 import java.time.LocalDateTime;
@@ -19,12 +19,18 @@ public record UserDto(
         String email,
 
         @JsonView(Views.UserDetails.class)
-        List<Order> orders,
+        List<OrderDto> orders,
 
         @JsonView(Views.UserDetails.class)
+        @JsonFormat(shape = JsonFormat.Shape.STRING,
+                pattern = "yyyy-MM-dd'#'HH:mm:ss",
+                locale = "ru-RU")
         LocalDateTime createdAt,
 
         @JsonView(Views.UserDetails.class)
+        @JsonFormat(shape = JsonFormat.Shape.STRING,
+                pattern = "yyyy-MM-dd'#'HH:mm:ss",
+                locale = "ru-RU")
         LocalDateTime updatedAt
 ) {
 }
