@@ -33,12 +33,14 @@ public class UserController {
     private final UserMapper mapper;
 
 
+    @JsonView(Views.UserSummary.class)
     @PostMapping("/users")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserRequestDto dto) {
         User newUser = userService.createUser(dto);
         return new ResponseEntity<>(mapper.toDto(newUser), HttpStatus.CREATED);
     }
 
+    @JsonView(Views.UserSummary.class)
     @PatchMapping("/users")
     public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserRequestDto dto) {
         User updatedUser = userService.updateUser(dto);
