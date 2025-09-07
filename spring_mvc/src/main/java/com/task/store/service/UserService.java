@@ -1,6 +1,7 @@
 package com.task.store.service;
 
 import com.task.store.dto.UserRequestDto;
+import com.task.store.exception.EmailAlreadyExistException;
 import com.task.store.model.User;
 import com.task.store.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class UserService {
     public User createUser(UserRequestDto userDto) {
         String email = userDto.email();
         if (repository.existsByEmail(email)) {
-            throw new IllegalArgumentException("User with such email already exists");
+            throw new EmailAlreadyExistException("User with such email already exists");
         }
         User newUser = User.builder()
                 .username(userDto.username())
@@ -32,8 +33,7 @@ public class UserService {
 
     @Transactional
     public User updateUser(UserRequestDto userDto) {
-        User user = repository.findById(userDto.id())
-                .orElseThrow(() -> new NoSuchElementException("User not found"));
+        User user = getUser(userDto.id());
 
         user.setUsername(userDto.username());
         user.setEmail(userDto.email());
@@ -50,8 +50,15 @@ public class UserService {
         repository.deleteById(id);
     }
 
+
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public User getUser(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("User not found"));
     }
 }
