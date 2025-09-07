@@ -45,7 +45,6 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     @EqualsAndHashCode.Include
     @JsonView(Views.UserSummary.class)
-    @Email
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
