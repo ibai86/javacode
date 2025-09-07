@@ -33,6 +33,9 @@
         <lombok.version>1.18.38</lombok.version>
         <logback.version>1.5.18</logback.version>
         <mapstruct.version>1.6.3</mapstruct.version>
+        <mapstruct-processor.version>1.6.3</mapstruct-processor.version>
+        <validation.version>3.1.1</validation.version>
+        <validator.version>8.0.3.Final</validator.version>
     </properties>
 
     <dependencyManagement>
@@ -96,6 +99,21 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct-processor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${validation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${validator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

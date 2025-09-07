@@ -1,5 +1,6 @@
 package com.task.store.service;
 
+import com.task.store.dto.UserSummaryDto;
 import com.task.store.model.User;
 import com.task.store.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +13,17 @@ public class UserService {
     private final UserRepository repository;
 
     @Transactional
-    public User createUser(User user) {
-        String email = user.getEmail();
+    public User createUser(UserSummaryDto userDto) {
+        String email = userDto.email();
         if (repository.existsByEmail(email)) {
             throw new IllegalArgumentException("User with such email already exists");
         }
+        User newUser = User.builder()
+                .username(userDto.username())
+                .email(email)
+                .build();
 
-        return repository.save(user);
+        return repository.save(newUser);
 
     }
 }

@@ -10,7 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,7 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
+@Builder
 public class User {
 
     @Id
@@ -42,6 +45,7 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     @EqualsAndHashCode.Include
     @JsonView(Views.UserSummary.class)
+    @Email
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -53,6 +57,7 @@ public class User {
     @JsonView(Views.UserDetails.class)
     private LocalDateTime createdAt;
 
+    @CreationTimestamp
     @Column(name = "updated_at", nullable = false)
     @JsonView(Views.UserDetails.class)
     private LocalDateTime updatedAt;
