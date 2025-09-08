@@ -59,12 +59,6 @@ public class Book extends Auditable {
     @Column(name = "genre", length = 30)
     private Genre genre;
 
-    @Column(name = "language")
-    private String language;
-
-    @Column(name = "publisher")
-    private String publisher;
-
     @Positive
     @Column(name = "page_count")
     private Integer pageCount;

@@ -50,9 +50,6 @@ public class Author extends Auditable {
     @ToString.Include
     private String email;
 
-    @Column(name = "nationality")
-    private String nationality;
-
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
