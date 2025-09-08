@@ -40,14 +40,9 @@ public class Author extends Auditable {
     private Long id;
 
     @NotBlank
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "name", nullable = false)
     @ToString.Include
-    private String firstName;
-
-    @NotBlank
-    @Column(name = "last_name", nullable = false)
-    @ToString.Include
-    private String lastName;
+    private String name;
 
     @Email
     @Size(max = 320)

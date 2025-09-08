@@ -7,7 +7,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class LibraryApplication {
     public static void main(String[] args) throws Exception {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.setConfigLocation("com.task.store.config");
+        context.setConfigLocation("com.task.library.config");
 
         DispatcherServlet servlet = new DispatcherServlet(context);
 
