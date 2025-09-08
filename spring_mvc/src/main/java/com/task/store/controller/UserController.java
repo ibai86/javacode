@@ -57,14 +57,14 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserDetails(@Positive @PathVariable Long id) {
         User user = userService.getUser(id);
-        return new ResponseEntity<>(mapper.toDto(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toDto(user), HttpStatus.OK);
     }
 
     @JsonView(Views.UserSummary.class)
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-        return new ResponseEntity<>(mapper.toDtoList(users), HttpStatus.FOUND);
+        return new ResponseEntity<>(mapper.toDtoList(users), HttpStatus.OK);
     }
 
 }

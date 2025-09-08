@@ -3,10 +3,12 @@ package com.task.store.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.task.store.model.Views;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
 public record UserDto(
 
         @JsonView(Views.UserSummary.class)
