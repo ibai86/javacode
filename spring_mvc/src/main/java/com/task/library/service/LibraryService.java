@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 
 public interface LibraryService {
 
-    Book createBook(BookDto bookDto);
+    Book createBook(Book book);
 
     Book updateBook(BookDto bookDto);
 

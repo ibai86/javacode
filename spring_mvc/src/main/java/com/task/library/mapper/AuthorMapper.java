@@ -1,4 +1,4 @@
-package com.task.library;
+package com.task.library.mapper;
 
 import com.task.library.dto.AuthorDto;
 import com.task.library.model.Author;

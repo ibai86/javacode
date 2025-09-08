@@ -1,6 +1,5 @@
 package com.task.library.service;
 
-import com.task.library.BookMapper;
 import com.task.library.dto.BookDto;
 import com.task.library.model.Author;
 import com.task.library.model.Book;
@@ -21,18 +20,20 @@ import java.util.NoSuchElementException;
 public class LibraryServiceImpl implements LibraryService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
-    private final BookMapper bookMapper;
 
     @Override
     @Transactional
-    public Book createBook(BookDto bookDto) {
-        Book newBook = bookMapper.toEntity(bookDto);
+    public Book createBook(Book newBook) {
         return bookRepository.save(newBook);
     }
 
     @Override
     @Transactional
     public Book updateBook(BookDto bookDto) {
+        if (bookDto.id() == null) {
+            throw new IllegalArgumentException("Book ID must not be null for update operation.");
+        }
+
         Book bookToUpdate = bookRepository.findById(bookDto.id())
                 .orElseThrow(() -> new NoSuchElementException("Book not found"));
 
