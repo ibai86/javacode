@@ -5,12 +5,16 @@ import com.task.library.model.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+import java.util.List;
+
+@Mapper(componentModel = "spring", uses = {AuthorMapper.class})
 public interface BookMapper {
 
-    @Mapping(target = "author", ignore = true)
-    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "author.id", target = "author.id")
     Book toEntity(BookDto book);
 
+    @Mapping(source = "author", target = "author")
     BookDto toDto(Book book);
+
+    List<BookDto> toDtoList(List<Book> books);
 }

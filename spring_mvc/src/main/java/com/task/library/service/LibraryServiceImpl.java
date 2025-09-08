@@ -42,7 +42,7 @@ public class LibraryServiceImpl implements LibraryService {
         bookToUpdate.setPageCount(bookDto.pageCount());
         bookToUpdate.setPublicationDate(bookDto.publicationDate());
 
-        Author author = authorRepository.findById(bookDto.author().getId())
+        Author author = authorRepository.findById(bookDto.author().id())
                 .orElseThrow(() -> new NoSuchElementException("Author not found"));
         bookToUpdate.setAuthor(author);
 
