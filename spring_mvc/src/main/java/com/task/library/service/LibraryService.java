@@ -14,5 +14,5 @@ public interface LibraryService {
 
     Book getBook(Long id);
 
-    Page<Book> getAllBooks(int page, int size, String sortedOf);
+    Page<Book> getAllBooks(int page, int size, String sortedBy);
 }
