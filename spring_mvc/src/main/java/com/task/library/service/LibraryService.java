@@ -3,6 +3,7 @@ package com.task.library.service;
 import com.task.library.dto.BookDto;
 import com.task.library.model.Book;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface LibraryService {
 
@@ -14,5 +15,5 @@ public interface LibraryService {
 
     Book getBook(Long id);
 
-    Page<Book> getAllBooks(int page, int size, String sortedBy);
+    Page<Book> getAllBooks(Pageable pageable);
 }

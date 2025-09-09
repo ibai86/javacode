@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -54,10 +55,9 @@ public class LibraryController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<BookDto>> getPageOfBooks(@RequestParam(defaultValue = "0") int page,
-                                                        @RequestParam(defaultValue = "20") int size,
-                                                        @RequestParam(defaultValue = "title") String sortedOf) {
-        Page<Book> bookPage = libraryService.getAllBooks(page, size, sortedOf);
+    public ResponseEntity<Page<BookDto>> getPageOfBooks(
+                                                        @PageableDefault(size = 20, sort = "title") Pageable pageable) {
+        Page<Book> bookPage = libraryService.getAllBooks(pageable);
         return new ResponseEntity<>(bookPage.map(bookMapper::toDto), HttpStatus.OK);
     }
 }
