@@ -18,6 +18,7 @@
         <module>GeometryApp/GeometryUtils</module>
         <module>concurrency</module>
         <module>spring_mvc</module>
+        <module>spring_data</module>
     </modules>
 
     <properties>
