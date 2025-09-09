@@ -4,6 +4,7 @@ import com.task.library.dto.BookDto;
 import com.task.library.mapper.BookMapper;
 import com.task.library.model.Book;
 import com.task.library.service.LibraryService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,13 +30,13 @@ public class LibraryController {
     private final BookMapper bookMapper;
 
     @PostMapping
-    public ResponseEntity<BookDto> createBook(@RequestBody BookDto dto) {
+    public ResponseEntity<BookDto> createBook(@Valid @RequestBody BookDto dto) {
         Book newBook = bookMapper.toEntity(dto);
         return new ResponseEntity<>(bookMapper.toDto(newBook), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<BookDto> updateBook(@RequestBody BookDto dto) {
+    public ResponseEntity<BookDto> updateBook(@Valid @RequestBody BookDto dto) {
         Book updatedBook = bookMapper.toEntity(dto);
         return new ResponseEntity<>(bookMapper.toDto(updatedBook), HttpStatus.OK);
     }
