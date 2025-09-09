@@ -48,7 +48,7 @@ public class Product {
     private String description;
 
     @Column(name = "price", nullable = false)
-    private BigDecimal price;
+    private BigDecimal price = BigDecimal.valueOf(0.0);
 
     @Column(name = "quantity", nullable = false)
     @PositiveOrZero
