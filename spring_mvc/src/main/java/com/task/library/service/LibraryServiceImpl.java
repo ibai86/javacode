@@ -23,8 +23,8 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     @Transactional
-    public Book createBook(Book newBook) {
-        return bookRepository.save(newBook);
+    public Book createBook(BookDto dto) {
+        return bookRepository.save(prepareBookToSave(dto));
     }
 
     @Override
@@ -37,17 +37,7 @@ public class LibraryServiceImpl implements LibraryService {
         Book bookToUpdate = bookRepository.findById(bookDto.id())
                 .orElseThrow(() -> new NoSuchElementException("Book not found"));
 
-        bookToUpdate.setTitle(bookDto.title());
-        bookToUpdate.setIsbn(bookDto.isbn());
-        bookToUpdate.setGenre(bookDto.genre());
-        bookToUpdate.setPageCount(bookDto.pageCount());
-        bookToUpdate.setPublicationDate(bookDto.publicationDate());
-
-        Author author = authorRepository.findById(bookDto.author().id())
-                .orElseThrow(() -> new NoSuchElementException("Author not found"));
-        bookToUpdate.setAuthor(author);
-
-        return bookRepository.save(bookToUpdate);
+        return bookRepository.save(prepareBookToSave(bookDto));
     }
 
     @Override
@@ -72,5 +62,23 @@ public class LibraryServiceImpl implements LibraryService {
     public Page<Book> getAllBooks(int page, int size, String sortedBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortedBy));
         return bookRepository.findAll(pageable);
+    }
+
+    private Book prepareBookToSave(BookDto dto) {
+        if (dto.author().id() == null) {
+            throw new NoSuchElementException("Cannot get author id");
+        }
+
+        Author author = authorRepository.findById(dto.author().id())
+                .orElseThrow(() -> new NoSuchElementException("Author not found"));
+
+        return Book.builder()
+                .title(dto.title())
+                .isbn(dto.isbn())
+                .genre(dto.genre())
+                .pageCount(dto.pageCount())
+                .publicationDate(dto.publicationDate())
+                .author(author)
+                .build();
     }
 }

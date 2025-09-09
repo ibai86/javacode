@@ -31,13 +31,13 @@ public class LibraryController {
 
     @PostMapping
     public ResponseEntity<BookDto> createBook(@Valid @RequestBody BookDto dto) {
-        Book newBook = bookMapper.toEntity(dto);
+        Book newBook = libraryService.createBook(dto);
         return new ResponseEntity<>(bookMapper.toDto(newBook), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<BookDto> updateBook(@Valid @RequestBody BookDto dto) {
-        Book updatedBook = bookMapper.toEntity(dto);
+        Book updatedBook = libraryService.updateBook(dto);
         return new ResponseEntity<>(bookMapper.toDto(updatedBook), HttpStatus.OK);
     }
 
