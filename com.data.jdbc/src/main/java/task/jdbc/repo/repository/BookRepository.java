@@ -60,11 +60,13 @@ public class BookRepository implements BookJdbcRepository {
 
     @Override
     public void delete(Long id) {
-
+        String sql = "DELETE FROM books WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     @Override
     public List<Book> findAll() {
-        return List.of();
+        String sql = "SELECT id, title, author, publication_year FROM books ORDER BY title";
+        return jdbcTemplate.query(sql, getRowMapper());
     }
 }
