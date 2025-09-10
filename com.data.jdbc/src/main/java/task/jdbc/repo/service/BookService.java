@@ -21,7 +21,7 @@ public class BookService {
 
     @Transactional
     public Book updateBook(Book book) {
-        Book bookToUpdate = findById(book.getId());
+        Book bookToUpdate = checkBookExistAndReturn(book.getId());
 
         bookToUpdate.setTitle(book.getTitle());
         bookToUpdate.setAuthor(book.getAuthor());
@@ -31,12 +31,21 @@ public class BookService {
     }
 
     @Transactional(readOnly = true)
-    public List<Book> findAll() {
-
+    public Book getBook(Long id) {
+        return checkBookExistAndReturn(id);
     }
 
     @Transactional(readOnly = true)
-    public Book findById(Long id) {
+    public List<Book> getAllBooks() {
+        return repository.findAll();
+    }
+
+    @Transactional
+    public void deleteBook(Long id) {
+        repository.delete(id);
+    }
+
+    private Book checkBookExistAndReturn(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Book not found"));
     }
