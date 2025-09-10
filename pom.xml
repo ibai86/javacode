@@ -9,16 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>datetime_jackson</module>
-        <module>custom_stringBuilder</module>
-        <module>collection</module>
-        <module>stream_api</module>
-        <module>GeometryLibrary</module>
-        <module>GeometryApp</module>
-        <module>GeometryApp/GeometryUtils</module>
-        <module>concurrency</module>
-        <module>spring_mvc</module>
-        <module>spring_data</module>
+        <module>com.data.jdbc</module>
     </modules>
 
     <properties>

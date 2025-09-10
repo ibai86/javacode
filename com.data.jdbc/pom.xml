@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>spring_data</artifactId>
+    <artifactId>jdbc</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
