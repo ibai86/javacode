@@ -1,6 +1,6 @@
 package store.mapper;
 
-import store.dto.OrderDto;
+import store.dto.OrderResponseDto;
 import store.model.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -9,8 +9,8 @@ import org.mapstruct.Mapping;
 public interface OrderMapper {
 
     @Mapping(source = "product.id", target = "product.id")
-    Order toEntity(OrderDto dto);
+    Order toEntity(OrderResponseDto dto);
 
     @Mapping(source = "product", target = "product")
-    OrderDto toDto(Order order);
+    OrderResponseDto toDto(Order order);
 }

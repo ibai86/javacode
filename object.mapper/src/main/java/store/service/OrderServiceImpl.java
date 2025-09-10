@@ -2,7 +2,8 @@ package store.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import store.dto.OrderDto;
+import org.springframework.transaction.annotation.Transactional;
+import store.dto.OrderResponseDto;
 import store.exception.InsufficientStockException;
 import store.model.Customer;
 import store.model.Order;
@@ -22,21 +23,21 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     @Override
-    public Order createOrder(OrderDto dto) {
+    @Transactional
+    public Order createOrder(OrderResponseDto dto) {
         Long customerId = dto.customer().id();
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NoSuchElementException("Customer not found"));
 
         List<Product> checkedProducts = new ArrayList<>();
-        dto.productsDto()
-                .forEach(productDto -> {
-                    Product product = productService.getProduct(productDto.id());
+        dto.productsIds()
+                .forEach(id -> {
+                    Product product = productService.getProduct(id);
                     int availableQuantity = product.getQuantityInStock();
-                    if (productDto.quantityInOrder() > availableQuantity) {
-                        throw new InsufficientStockException(
-                                "Quantity of product " + product.getName() + " is not enough is stock");
+                    if (availableQuantity == 0) {
+                        throw new InsufficientStockException("Product " + product.getName() + " is not present in stock");
                     }
-                    product.setQuantityInStock(availableQuantity - productDto.quantityInOrder());
+                    product.setQuantityInStock(availableQuantity - 1);
                     checkedProducts.add(product);
                 });
 
@@ -47,13 +48,15 @@ public class OrderServiceImpl implements OrderService {
                 .products(productsInOrder)
                 .shippingAddress(dto.shippingAddress())
                 .orderStatus(Order.OrderStatus.PROCESSED)
-//                .totalPrice()
                 .build();
 
+        return orderRepository.save(newOrder);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Order getOrder(Long id) {
-        return null;
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Order not found"));
     }
 }
