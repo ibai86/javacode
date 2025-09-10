@@ -1,12 +1,13 @@
 package store.service;
 
-import store.dto.ProductDto;
-import store.model.Product;
-import store.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import store.model.Product;
+import store.repository.ProductRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -14,27 +15,36 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Product createProduct(ProductDto dto) {
-        return null;
+    @Transactional
+    public Product createProduct(Product product) {
+        return productRepository.save(product);
     }
 
     @Override
-    public Product updateProduct(ProductDto dto) {
-        return null;
+    @Transactional
+    public Product updateProduct(Product product) {
+        if (product.getId() == null) {
+            throw new NoSuchElementException("Cannot update, product not found");
+        }
+        return productRepository.save(product);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Product getProduct(Long id) {
-        return null;
+        return productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Product not found"));
     }
 
     @Override
+    @Transactional
     public void deleteProduct(Long id) {
-
+        productRepository.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Product> getAllProducts() {
-        return List.of();
+        return productRepository.findAll();
     }
 }
