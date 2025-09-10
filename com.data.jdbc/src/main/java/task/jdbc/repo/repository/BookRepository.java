@@ -1,5 +1,6 @@
 package task.jdbc.repo.repository;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import task.jdbc.repo.model.Book;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -39,12 +40,22 @@ public class BookRepository implements BookJdbcRepository {
 
     @Override
     public Book update(Book book) {
-        return null;
+        String sql = "UPDATE books SET title = ?, author = ?, publication_year = ? WHERE id = ?";
+        int rowAffected = jdbcTemplate.update(
+                sql, book.getTitle(), book.getAuthor(), book.getPublicationYear(), book.getId());
+
+        if (rowAffected == 0) {
+            throw new EmptyResultDataAccessException("Book not found: " + book.getId(), 1);
+        }
+
+        return book;
     }
 
     @Override
     public Optional<Book> findById(Long id) {
-        return Optional.empty();
+        String sql = "SELECT id, title, author, publication_year FROM books WHERE id = ?";
+        Book foundBook = jdbcTemplate.queryForObject(sql, getRowMapper(), id);
+        return Optional.ofNullable(foundBook);
     }
 
     @Override
