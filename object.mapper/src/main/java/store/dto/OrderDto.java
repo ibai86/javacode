@@ -12,7 +12,7 @@ public record OrderDto(
 
         @NotNull
         CustomerDto customer,
-        List<ProductDto> products,
+        List<ProductRequestDto> productsDto,
         String shippingAddress,
         BigDecimal totalPrice,
         Order.OrderStatus orderStatus,

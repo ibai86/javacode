@@ -4,6 +4,8 @@ import store.dto.ProductDto;
 import store.model.Product;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
 
@@ -11,5 +13,5 @@ public interface ProductMapper {
 
     ProductDto toDto(Product product);
 
-//    List<ProductDto> toDtoList(List<Product> products);
+    List<ProductDto> toDtoList(List<Product> productsDto);
 }

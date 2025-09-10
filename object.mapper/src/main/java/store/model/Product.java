@@ -21,7 +21,7 @@ import lombok.ToString;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "products")
+@Table(name = "productsDto")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
