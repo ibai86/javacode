@@ -1,4 +1,4 @@
-package com.task.jdbc_repo;
+package task.jdbc.repo;
 
 public class JdbcApplication {
 }

@@ -1,4 +1,4 @@
-package com.task.jdbc_repo.config;
+package task.jdbc.repo.config;
 
 
 import org.springframework.context.annotation.Bean;

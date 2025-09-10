@@ -1,4 +1,4 @@
-package com.task.jdbc_repo.model;
+package task.jdbc.repo.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;

@@ -1,6 +1,6 @@
-package com.task.jdbc_repo.repository;
+package task.jdbc.repo.repository;
 
-import com.task.jdbc_repo.model.Book;
+import task.jdbc.repo.model.Book;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;

@@ -1,6 +1,6 @@
-package com.task.jdbc_repo.repository;
+package task.jdbc.repo.repository;
 
-import com.task.jdbc_repo.model.Book;
+import task.jdbc.repo.model.Book;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.List;
