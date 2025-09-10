@@ -1,8 +1,8 @@
-package com.task.online_shop.service;
+package store.service;
 
-import com.task.online_shop.dto.ProductDto;
-import com.task.online_shop.model.Product;
-import com.task.online_shop.repository.ProductRepository;
+import store.dto.ProductDto;
+import store.model.Product;
+import store.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

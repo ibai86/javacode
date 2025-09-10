@@ -1,7 +1,7 @@
-package com.task.online_shop.service;
+package store.service;
 
-import com.task.online_shop.dto.ProductDto;
-import com.task.online_shop.model.Product;
+import store.dto.ProductDto;
+import store.model.Product;
 
 import java.util.List;
 

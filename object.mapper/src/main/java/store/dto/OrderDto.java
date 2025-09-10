@@ -1,6 +1,6 @@
-package com.task.online_shop.dto;
+package store.dto;
 
-import com.task.online_shop.model.Order;
+import store.model.Order;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;

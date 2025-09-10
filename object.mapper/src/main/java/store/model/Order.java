@@ -1,4 +1,4 @@
-package com.task.online_shop.model;
+package store.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

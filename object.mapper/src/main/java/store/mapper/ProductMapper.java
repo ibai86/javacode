@@ -1,10 +1,8 @@
-package com.task.online_shop.mapper;
+package store.mapper;
 
-import com.task.online_shop.dto.ProductDto;
-import com.task.online_shop.model.Product;
+import store.dto.ProductDto;
+import store.model.Product;
 import org.mapstruct.Mapper;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {

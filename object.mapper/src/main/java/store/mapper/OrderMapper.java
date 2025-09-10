@@ -1,7 +1,7 @@
-package com.task.online_shop.mapper;
+package store.mapper;
 
-import com.task.online_shop.dto.OrderDto;
-import com.task.online_shop.model.Order;
+import store.dto.OrderDto;
+import store.model.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

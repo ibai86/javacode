@@ -1,6 +1,6 @@
-package com.task.online_shop.repository;
+package store.repository;
 
-import com.task.online_shop.model.Product;
+import store.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

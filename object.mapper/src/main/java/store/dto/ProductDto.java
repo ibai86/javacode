@@ -1,4 +1,4 @@
-package com.task.online_shop.dto;
+package store.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
