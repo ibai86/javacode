@@ -42,6 +42,7 @@ public class BookService {
 
     @Transactional
     public void deleteBook(Long id) {
+        checkBookExistAndReturn(id);
         repository.delete(id);
     }
 
