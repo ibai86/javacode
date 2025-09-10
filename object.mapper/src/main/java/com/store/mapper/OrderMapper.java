@@ -1,7 +1,7 @@
-package store.mapper;
+package com.store.mapper;
 
-import store.dto.OrderResponseDto;
-import store.model.Order;
+import com.store.dto.OrderResponseDto;
+import com.store.model.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

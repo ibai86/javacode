@@ -1,7 +1,6 @@
-package store.service;
+package com.store.service;
 
-import store.dto.ProductDto;
-import store.model.Product;
+import com.store.model.Product;
 
 import java.util.List;
 

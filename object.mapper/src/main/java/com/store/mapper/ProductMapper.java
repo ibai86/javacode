@@ -1,7 +1,7 @@
-package store.mapper;
+package com.store.mapper;
 
-import store.dto.ProductDto;
-import store.model.Product;
+import com.store.dto.ProductDto;
+import com.store.model.Product;
 import org.mapstruct.Mapper;
 
 import java.util.List;

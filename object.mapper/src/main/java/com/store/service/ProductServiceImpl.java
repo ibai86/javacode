@@ -1,10 +1,10 @@
-package store.service;
+package com.store.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import store.model.Product;
-import store.repository.ProductRepository;
+import com.store.model.Product;
+import com.store.repository.ProductRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;

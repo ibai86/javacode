@@ -1,6 +1,6 @@
-package store.dto;
+package com.store.dto;
 
-import store.model.Order;
+import com.store.model.Order;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

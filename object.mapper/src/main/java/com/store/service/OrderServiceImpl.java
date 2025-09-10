@@ -1,15 +1,15 @@
-package store.service;
+package com.store.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import store.dto.OrderResponseDto;
-import store.exception.InsufficientStockException;
-import store.model.Customer;
-import store.model.Order;
-import store.model.Product;
-import store.repository.CustomerRepository;
-import store.repository.OrderRepository;
+import com.store.dto.OrderResponseDto;
+import com.store.exception.InsufficientStockException;
+import com.store.model.Customer;
+import com.store.model.Order;
+import com.store.model.Product;
+import com.store.repository.CustomerRepository;
+import com.store.repository.OrderRepository;
 
 import java.util.ArrayList;
 import java.util.List;

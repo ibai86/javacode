@@ -1,7 +1,7 @@
-package store.service;
+package com.store.service;
 
-import store.dto.OrderResponseDto;
-import store.model.Order;
+import com.store.dto.OrderResponseDto;
+import com.store.model.Order;
 
 public interface OrderService {
 
