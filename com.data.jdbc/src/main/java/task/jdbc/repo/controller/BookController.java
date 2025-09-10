@@ -13,7 +13,7 @@ import task.jdbc.repo.model.Book;
 import task.jdbc.repo.service.BookService;
 
 @RestController
-@RequestMapping("apa/v1/books")
+@RequestMapping("api/v1/books")
 @RequiredArgsConstructor
 public class BookController {
     private final BookService service;

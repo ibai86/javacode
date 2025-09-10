@@ -8,7 +8,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class JdbcApplication {
     public static void main(String[] args) throws Exception {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.setConfigLocation("com.task.library.config");
+        context.setConfigLocation("task.jdbc.repo.config");
 
         DispatcherServlet servlet = new DispatcherServlet(context);
 
