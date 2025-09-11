@@ -36,11 +36,11 @@ public class Mapper {
 
         CustomerDto customerDto = toCustomerDto(order.getCustomer());
 
-        List<Long> products = order.getProducts().stream()
+        List<Long> productsIds = order.getProducts().stream()
                 .map(Product::getId)
                 .collect(Collectors.toList());
 
-        return dto.setResponseValues(customerDto, products);
+        return dto.setResponseValues(customerDto, productsIds);
     }
 
 
