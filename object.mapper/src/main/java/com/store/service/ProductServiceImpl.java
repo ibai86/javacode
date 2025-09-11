@@ -48,6 +48,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
+    @Override
     @Transactional
     public List<Product> saveAllProducts(List<Product> products) {
         return productRepository.saveAll(products);

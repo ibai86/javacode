@@ -78,13 +78,4 @@ public class Order {
         PROCESSED,
         CANCELLED
     }
-
-//    @PrePersist
-//    @PreUpdate
-    @Transient
-    public BigDecimal getTotalPrice() {
-        return products.stream()
-                .map(Product::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 }

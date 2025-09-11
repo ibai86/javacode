@@ -16,4 +16,6 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
+    List<Product> saveAllProducts(List<Product> products);
+
 }

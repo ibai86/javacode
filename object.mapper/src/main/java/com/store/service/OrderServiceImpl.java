@@ -11,6 +11,7 @@ import com.store.model.Product;
 import com.store.repository.CustomerRepository;
 import com.store.repository.OrderRepository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -35,18 +36,19 @@ public class OrderServiceImpl implements OrderService {
                     Product product = productService.getProduct(id);
                     int availableQuantity = product.getQuantityInStock();
                     if (availableQuantity == 0) {
-                        throw new InsufficientStockException("Product " + product.getName() + " is not present in stock");
+                        throw new InsufficientStockException("Product " + product.getName() + " is out of stock");
                     }
                     product.setQuantityInStock(availableQuantity - 1);
                     checkedProducts.add(product);
                 });
 
-//        List<Product> productsInOrder = productService.saveAllProducts(checkedProducts);
+        List<Product> productsInOrder = productService.saveAllProducts(checkedProducts);
 
         Order newOrder = Order.builder()
                 .customer(customer)
-//                .products(productsInOrder)
+                .products(productsInOrder)
                 .shippingAddress(dto.shippingAddress())
+                .totalPrice(getTotalPrice(productsInOrder))
                 .orderStatus(Order.OrderStatus.PROCESSED)
                 .build();
 
@@ -58,5 +60,11 @@ public class OrderServiceImpl implements OrderService {
     public Order getOrder(Long id) {
         return orderRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Order not found"));
+    }
+
+    private BigDecimal getTotalPrice(List<Product> products) {
+        return products.stream()
+                .map(Product::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
