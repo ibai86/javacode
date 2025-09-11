@@ -21,7 +21,7 @@ import lombok.ToString;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "productsIds")
+@Table(name = "products")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -34,11 +34,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    @ToString.Exclude
-    private Order order;
 
     @Column(name = "name", nullable = false)
     @NotBlank
