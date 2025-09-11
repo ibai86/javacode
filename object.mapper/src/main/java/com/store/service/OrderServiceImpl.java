@@ -1,5 +1,6 @@
 package com.store.service;
 
+import com.store.dto.OrderRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,13 +26,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order createOrder(OrderResponseDto dto) {
-        Long customerId = dto.customer().id();
-        Customer customer = customerRepository.findById(customerId)
+    public Order createOrder(OrderRequestDto dto) {
+        Customer customer = customerRepository.findById(dto.customerId())
                 .orElseThrow(() -> new NoSuchElementException("Customer not found"));
 
         List<Product> checkedProducts = new ArrayList<>();
-        dto.productsIds()
+        dto.productIds()
                 .forEach(id -> {
                     Product product = productService.getProduct(id);
                     int availableQuantity = product.getQuantityInStock();
