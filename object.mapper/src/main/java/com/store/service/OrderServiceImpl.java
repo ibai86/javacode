@@ -1,16 +1,15 @@
 package com.store.service;
 
 import com.store.dto.OrderRequestDto;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.store.dto.OrderResponseDto;
 import com.store.exception.InsufficientStockException;
 import com.store.model.Customer;
 import com.store.model.Order;
 import com.store.model.Product;
 import com.store.repository.CustomerRepository;
 import com.store.repository.OrderRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
