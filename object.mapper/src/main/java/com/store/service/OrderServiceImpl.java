@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    private final ProductServiceImpl productService;
+    private final ProductService productService;
     private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
 
@@ -41,11 +41,11 @@ public class OrderServiceImpl implements OrderService {
                     checkedProducts.add(product);
                 });
 
-        List<Product> productsInOrder = productService.saveAllProducts(checkedProducts);
+//        List<Product> productsInOrder = productService.saveAllProducts(checkedProducts);
 
         Order newOrder = Order.builder()
                 .customer(customer)
-                .products(productsInOrder)
+//                .products(productsInOrder)
                 .shippingAddress(dto.shippingAddress())
                 .orderStatus(Order.OrderStatus.PROCESSED)
                 .build();

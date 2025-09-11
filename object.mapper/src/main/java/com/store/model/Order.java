@@ -79,8 +79,8 @@ public class Order {
         CANCELLED
     }
 
-    @PrePersist
-    @PreUpdate
+//    @PrePersist
+//    @PreUpdate
     @Transient
     public BigDecimal getTotalPrice() {
         return products.stream()
